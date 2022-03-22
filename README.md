@@ -1,10 +1,6 @@
 # Bailando
 Code for CVPR 2022 paper "Bailando: 3D dance generation via Actor-Critic GPT with Choreographic Memory"
 
-# AnimeInterp
-
-This is the code for paper "Deep Animation Video Interpolation in the Wild" (CVPR21). 
-
 [[Paper]] |  [[Video Demo]](https://www.youtube.com/watch?v=YbXOcuMTzD8)
 
 > Driving 3D characters to dance following a piece of music is highly challenging due to the \textbf{spatial} constraints applied to poses by choreography norms. In addition, the generated dance sequence also needs to maintain \textbf{temporal} coherency with different music genres. To tackle these challenges, we propose a novel music-to-dance framework, \textbf{Bailando}, with two powerful components: \textbf{1)} a choreographic memory that learns to summarize meaningful dancing units from 3D pose sequence to a quantized codebook, \textbf{2)} an actor-critic Generative Pre-trained Transformer (GPT) that composes these units to a fluent dance coherent to the music. With the learned choreographic memory, dance generation is
