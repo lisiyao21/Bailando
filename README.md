@@ -1,7 +1,7 @@
 # Bailando
 Code for CVPR 2022 paper "Bailando: 3D dance generation via Actor-Critic GPT with Choreographic Memory"
 
-[Paper] | [Project Page] |  [[Video Demo]](https://www.youtube.com/watch?v=YbXOcuMTzD8)
+[[Paper]](https://arxiv.org/abs/2203.13055) | [Project Page] |  [[Video Demo]](https://www.youtube.com/watch?v=YbXOcuMTzD8)
 
 <img width=19% src="https://github.com/lisiyao21/Bailando/blob/main/gifs/dance_gif1.gif"/> <img width=44% src="https://github.com/lisiyao21/Bailando/blob/main/gifs/dance_gif2.gif"/> <img width=33% src="https://github.com/lisiyao21/Bailando/blob/main/gifs/dance_gif3.gif"/>
 
