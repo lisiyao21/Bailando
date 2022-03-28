@@ -24,11 +24,11 @@ to produce the features for training and test.
 
 ## Training
 
-If you are using the slurm workload manager, run the code as
+<!-- If you are using the slurm workload manager, run the code as
 
 
 
-If not, run
+If not, run -->
 
 
 <!-- 
