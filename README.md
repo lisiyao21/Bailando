@@ -17,10 +17,10 @@ TODO: user guide and implementation instructions.
 
 ## Data preparation
 
-In our experiments, we use AIST++ for both training and evaluation. Please visit [here](https://google.github.io/aistplusplus_dataset/download.html) to download the AIST++ annotations and unzip them as './aist_plusplus_final/' folder, visit [here](https://aistdancedb.ongaaccel.jp/database_download/) to download the original all music pieces (mp3) into './aist_plusplus_final/all_musics', and finally run
+<!-- In our experiments, we use AIST++ for both training and evaluation. Please visit [here](https://google.github.io/aistplusplus_dataset/download.html) to download the AIST++ annotations and unzip them as './aist_plusplus_final/' folder, visit [here](https://aistdancedb.ongaaccel.jp/database_download/) to download the original all music pieces (mp3) into './aist_plusplus_final/all_musics', and finally run
 
 to produce the features for training and test.
-
+ -->
 
 ## Training
 
@@ -31,7 +31,7 @@ If you are using the slurm workload manager, run the code as
 If not, run
 
 
-
+<!-- 
 ### Step 1: Train pose VQ-VAE (without global velocity)
 
 
@@ -40,14 +40,14 @@ If not, run
 ### Step 2: Train glabal velocity branch of pose VQ-VAE
 
 ### Step 3: Train motion GPT
-### Step 4: Actor-Critic finetuning on target music 
+### Step 4: Actor-Critic finetuning on target music  -->
 
 ## Evaluation
-
+<!-- 
 ### 1. Generate dancing results
 
 ### 2. Dance quality evaluations
-
+ -->
 ## Choreographic for music in the wild
 
 
