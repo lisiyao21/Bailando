@@ -1,0 +1,96 @@
+structure:
+    name: SepVQVAER
+    up_half:
+    # VQVAE configs
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vqvae_reverse_decoder_dilation: True
+    down_half:
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        acc: 1.0
+        vqvae_reverse_decoder_dilation: True
+    use_bottleneck: True
+    joint_channel: 3
+    l_bins : 512
+
+loss_weight:
+    mse_weight: 1
+
+optimizer:
+    type: Adam
+    kwargs:
+        lr: 0.00005
+        betas: [0.9, 0.999]
+        weight_decay: 0
+    schedular_kwargs:
+        gamma: 0.1
+        milestones: [100, 200]
+# schedular: []
+data:
+    name: aist   
+    test_dir: data/aistpp_train_wav
+    test_dir: data/aistpp_test_full_wav
+
+    seq_len: 240
+    data_type: None
+testing:
+    height: 540
+    width: 960
+    ckpt_epoch: 500
+
+expname: sep_vqvae_root
+epoch: 500
+batch_size: 8
+save_per_epochs: 20
+test_freq: 20
+log_per_updates: 1
+seed: 42
+rotmat: False
+cuda: True
+global_vel: True
+ds_rate: 8
+move_train: 8
+sample_code_length: 150
+sample_code_rate: 8
+# analysis_array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+# analysis_sequence: [[4, 5, 4 , 5, 4, 1, 4, 1, 5, 2, 4, 2, 5, 3, 4, 3, 5,]]
+init_weight: 'experiments/sep_vqvae/ckpt/epoch_500.pt'
+
+analysis_pair: [[73, 346], [440, 102]]

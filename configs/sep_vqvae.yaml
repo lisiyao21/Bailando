@@ -1,0 +1,96 @@
+structure:
+    name: SepVQVAE
+    up_half:
+    #ChoreoGrapher Configs
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vel: 1
+        acc: 1
+        vqvae_reverse_decoder_dilation: True
+    down_half:
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vel: 1
+        acc: 1
+        vqvae_reverse_decoder_dilation: True
+    use_bottleneck: True
+    joint_channel: 3
+    l_bins : 512
+    # XXX Configs
+
+loss_weight:
+    mse_weight: 1
+optimizer:
+    type: Adam
+    kwargs:
+        lr: 0.00003
+        betas: [0.5, 0.999]
+        weight_decay: 0
+    schedular_kwargs:
+        milestones: [100, 200]
+        gamma: 0.1
+# schedular: []
+data:
+    name: aist   
+    train_dir: data/aistpp_train_wav
+    test_dir: data/aistpp_test_full_wav
+    seq_len: 240
+    data_type: None
+testing:
+    height: 540
+    width: 960
+    ckpt_epoch: 500
+
+expname: sep_vqvae
+epoch: 500
+batch_size: 32
+save_per_epochs: 20
+test_freq: 20
+log_per_updates: 1
+seed: 42
+rotmat: False
+cuda: True
+global_vel: False
+ds_rate: 8
+move_train: 40
+sample_code_length: 150
+# analysis_array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+sample_code_rate: 16
+analysis_sequence: [[126, 81]]
+## init_weight: '/mnt/lustre/lisiyao1/dance/bailando/experiments/sep_vqvae_root_data_l1_d8_local_c512_di3_global_vel_full_beta0.9_only_dec_root/ckpt/epoch_300.pt'
