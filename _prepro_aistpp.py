@@ -18,7 +18,7 @@ from smplx import SMPL
 import torch
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_video_dir', type=str, default='aist-pp-dataset/all_musics')
+parser.add_argument('--input_video_dir', type=str, default='aist_plusplus_final/all_musics')
 parser.add_argument('--input_annotation_dir', type=str, default='aist_plusplus_final')
 parser.add_argument('--smpl_dir', type=str, default='smpl')
 
