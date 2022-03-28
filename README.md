@@ -10,7 +10,7 @@ realized on the quantized units that meet high choreography standards, such that
 
 # Code
 
-TODO: user guide and implementation instructions (Please wait one more day to let me finish the guildline.)
+TODO: user guide and implementation instructions.
 
 ## Environment
 (TODO)
