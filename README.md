@@ -1,5 +1,5 @@
 # Bailando
-Code for CVPR 2022 paper "Bailando: 3D dance generation via Actor-Critic GPT with Choreographic Memory"
+Code for CVPR 2022 (oral) paper "Bailando: 3D dance generation via Actor-Critic GPT with Choreographic Memory"
 
 [[Paper]](https://arxiv.org/abs/2203.13055) | [Project Page] |  [[Video Demo]](https://www.youtube.com/watch?v=YbXOcuMTzD8)
 
