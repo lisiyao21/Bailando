@@ -8,5 +8,5 @@ python _prepro_aistpp_music.py --store_dir data/aistpp_music_feat --sampling_rat
 # remove bad dances; the list is from AIST++ project page
 for ff in `cat ignored_list.txt`
 do
-    rm -rf data/aistpp_train_wav_full/$ff
+    rm -rf data/aistpp_train_wav/$ff
 done
