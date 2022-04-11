@@ -22,7 +22,7 @@ parser.add_argument('--input_video_dir', type=str, default='aist_plusplus_final/
 parser.add_argument('--input_annotation_dir', type=str, default='aist_plusplus_final')
 parser.add_argument('--smpl_dir', type=str, default='smpl')
 
-parser.add_argument('--train_dir', type=str, default='data/aistpp_train_wav_full')
+parser.add_argument('--train_dir', type=str, default='data/aistpp_train_wav')
 parser.add_argument('--test_dir', type=str, default='data/aistpp_test_wav_full')
 
 parser.add_argument('--split_train_file', type=str, default='aist_plusplus_final/splits/crossmodal_train.txt')
