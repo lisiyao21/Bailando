@@ -10,47 +10,53 @@ realized on the quantized units that meet high choreography standards, such that
 
 # Code
 
-TODO: user guide and implementation instructions.
-
 ## Environment
-(TODO)
+(TODO) [Unfinished]
+PyTorch == 1.6
 
 ## Data preparation
 
-<!-- In our experiments, we use AIST++ for both training and evaluation. Please visit [here](https://google.github.io/aistplusplus_dataset/download.html) to download the AIST++ annotations and unzip them as './aist_plusplus_final/' folder, visit [here](https://aistdancedb.ongaaccel.jp/database_download/) to download the original all music pieces (mp3) into './aist_plusplus_final/all_musics', and finally run
+In our experiments, we use AIST++ for both training and evaluation. Please visit [here](https://google.github.io/aistplusplus_dataset/download.html) to download the AIST++ annotations and unzip them as './aist_plusplus_final/' folder, visit [here](https://aistdancedb.ongaaccel.jp/database_download/) to download the original all music pieces (wav) into './aist_plusplus_final/all_musics', and finally run 
 
-to produce the features for training and test.
- -->
+    ./prepare_aistpp_data.sh
+
+to produce the features for training and test. Otherwise, directly download our preprocessed feature from here as ./data folder if you don't wish to process the data.
 
 ## Training
 
+The training of Bailando comprises of 4 steps in the following sequence. If you are using the slurm workload manager, you can directly run the corresponding shell. Otherwise, please remove the 'srun' parts. Our models are all trained with single NVIDIA V100 GPU. * A kind reminder: the quantization code does not fit multi-gpu training
 <!-- If you are using the slurm workload manager, run the code as
-
-
 
 If not, run -->
 
-
-<!-- 
 ### Step 1: Train pose VQ-VAE (without global velocity)
 
-
-
+    sh srun.sh configs/sep_vqvae.yaml train [your node name] 1
 
 ### Step 2: Train glabal velocity branch of pose VQ-VAE
 
+    sh srun.sh configs/sep_vavqe_root.yaml train [your node name] 1
+
 ### Step 3: Train motion GPT
-### Step 4: Actor-Critic finetuning on target music  -->
+
+    sh srun_gpt_all.sh configs/cc_motion_gpt.yaml train [your node name] 1
+
+### Step 4: Actor-Critic finetuning on target music 
+
+    sh srun_actor_critic.sh configs/actor_critic.yaml train [your node name] 1
 
 ## Evaluation
-<!-- 
+
+To test with our pretrained models, please download the weights from [here](https://drive.google.com/file/d/1Fi0TIiBV6EQAQrBU0IOnlke2Nu4IcutC/view?usp=sharing) (Google Drive) or here (坚果云) as ./experiments folder.
+
 ### 1. Generate dancing results
+sh srun_xxx.sh configs/xxx.yaml eval [your node name] 1
 
 ### 2. Dance quality evaluations
- -->
+TODO
+
 ## Choreographic for music in the wild
-
-
+TODO
 
 ### Citation
 
