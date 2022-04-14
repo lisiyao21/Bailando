@@ -619,7 +619,7 @@ class AC():
     def _dir_setting(self):
         data = self.config.data
         self.expname = self.config.expname
-        self.experiment_dir = os.path.join("/mnt/lustressd/lisiyao1/dance_experiements", "experiments")
+        self.experiment_dir = os.path.join("./", "experiments")
         self.expdir = os.path.join(self.experiment_dir, self.expname)
 
         if not os.path.exists(self.expdir):
