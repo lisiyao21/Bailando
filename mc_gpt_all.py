@@ -12,7 +12,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data
 from dataset.md_seq import MoDaSeq, paired_collate_fn
-from models.gpt2 import condGPT2
+# from models.gpt2 import condGPT2
 
 from utils.log import Logger
 from utils.functional import str2bool, load_data, load_data_aist, check_data_distribution,visualizeAndWrite,load_test_data_aist,load_test_data

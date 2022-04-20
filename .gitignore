@@ -1,0 +1,15 @@
+smpl
+smpl/*
+download/*
+data/*
+aistplusplus_api/*
+experiments/*
+experiments
+*.pt
+*.swp
+*.zip
+downloader.py
+aistplusplus_api/
+aist_plusplus_final/
+__MACOSX/
+__pycache__/

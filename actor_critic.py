@@ -31,7 +31,7 @@ music_root = None
 # music_root = '/mnt/lustre/lisiyao1/dance/dance2/DanceRevolution/data/aistpp_test_full_wav'
 
 # beat signal is already stored in the feature, just fetch it (dim 53)
-def get_beat(key, music_rot):
+def get_beat(key, music_root):
     # if demo:
     #     music_root_a = '/mnt/lustressd/lisiyao1/data/aistpp_music/aistpp_music_feat_demo'
     #     # print('Demo!')
