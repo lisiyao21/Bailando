@@ -11,8 +11,7 @@ realized on the quantized units that meet high choreography standards, such that
 # Code
 
 ## Environment
-(TODO) [Unfinished]
-PyTorch == 1.6
+    PyTorch == 1.6.0
 
 ## Data preparation
 
