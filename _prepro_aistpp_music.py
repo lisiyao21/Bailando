@@ -25,10 +25,9 @@ args = parser.parse_args()
 store_dir = args.store_dir
 extractor = FeatureExtractor()
 
-if not os.path.exists(args.train_dir):
-    os.mkdir(args.train_dir)
-if not os.path.exists(args.test_dir):
-    os.mkdir(args.test_dir)
+if not os.path.exists(args.store_dir):
+    os.mkdir(args.store_dir)
+
 
 
 def make_music_dance_set(video_dir):
@@ -79,7 +78,7 @@ def extract_acoustic_feature(audio, sr):
     audio_harmonic, audio_percussive = extractor.get_hpss(audio)
     # harmonic_melspe_db = get_harmonic_melspe_db(audio_harmonic, sr)
     # percussive_melspe_db = get_percussive_melspe_db(audio_percussive, sr)
-    chroma_cqt = extractor.get_chroma_cqt(audio_harmonic, sr)
+    chroma_cqt = extractor.get_chroma_cqt(audio_harmonic, sr,  octave=7 if sr==15360*2 else 5)
     # chroma_stft = extractor.get_chroma_stft(audio_harmonic, sr)
 
     onset_env = extractor.get_onset_strength(audio_percussive, sr)

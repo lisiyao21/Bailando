@@ -142,7 +142,7 @@ def extract_acoustic_feature(audio, sr):
     audio_harmonic, audio_percussive = extractor.get_hpss(audio)
     # harmonic_melspe_db = get_harmonic_melspe_db(audio_harmonic, sr)
     # percussive_melspe_db = get_percussive_melspe_db(audio_percussive, sr)
-    chroma_cqt = extractor.get_chroma_cqt(audio_harmonic, sr)
+    chroma_cqt = extractor.get_chroma_cqt(audio_harmonic, sr, octave=7 if sr==15360*2 else 5)
     # chroma_stft = extractor.get_chroma_stft(audio_harmonic, sr)
 
     onset_env = extractor.get_onset_strength(audio_percussive, sr)

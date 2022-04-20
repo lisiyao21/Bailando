@@ -53,8 +53,8 @@ class FeatureExtractor:
         return percussive_melspe_db
 
     @staticmethod
-    def get_chroma_cqt(audio_harmonic, sr):
-        chroma_cqt_harmonic = librosa.feature.chroma_cqt(y=audio_harmonic, sr=sr, n_octaves=5)
+    def get_chroma_cqt(audio_harmonic, sr, octave=7):
+        chroma_cqt_harmonic = librosa.feature.chroma_cqt(y=audio_harmonic, sr=sr, n_octaves=octave)
         print(f'{chroma_cqt_harmonic.shape} -> chroma_cqt_harmonic')
         return chroma_cqt_harmonic
 
