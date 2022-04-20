@@ -16,7 +16,7 @@ PyTorch == 1.6
 
 ## Data preparation
 
-In our experiments, we use AIST++ for both training and evaluation. Please visit [here](https://google.github.io/aistplusplus_dataset/download.html) to download the AIST++ annotations and unzip them as './aist_plusplus_final/' folder, visit [here](https://aistdancedb.ongaaccel.jp/database_download/) to download the original all music pieces (wav) into './aist_plusplus_final/all_musics', and finally run 
+In our experiments, we use AIST++ for both training and evaluation. Please visit [here](https://google.github.io/aistplusplus_dataset/download.html) to download the AIST++ annotations and unzip them as './aist_plusplus_final/' folder, visit [here](https://aistdancedb.ongaaccel.jp/database_download/) to download the original all music pieces (wav) into './aist_plusplus_final/all_musics'. And please set up the AIST++ API from [here](https://github.com/google/aistplusplus_api) and download the required SMPL models from [here](https://smpl.is.tue.mpg.de/). Please make a folder smpl and rename the downloaded 'male' SMPL model (with '_m' in name) to 'smpl/SMPL_MALE' and finally run 
 
     ./prepare_aistpp_data.sh
 
