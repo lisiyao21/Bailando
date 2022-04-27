@@ -125,7 +125,7 @@ def img2video(expdir, epoch, audio_path=None):
 
 
     dance_names = sorted(os.listdir(image_dir))
-    audio_dir = "/mnt/lustre/share/lisiyao1/original_videos/aistpp-audio/"
+    audio_dir = "aist_plusplus_final/all_musics"
     
     music_names = sorted(os.listdir(audio_dir))
     
@@ -140,7 +140,7 @@ def img2video(expdir, epoch, audio_path=None):
         name1 = name.replace('cAll', 'c02')
         if 'demo' in name:
             name3 = name1
-            audio_dir = '/mnt/lustressd/lisiyao1/dance_experiements/paper/demo/demo_musics/'
+            audio_dir = 'data/demo_musics/'
             music_names = sorted(os.listdir(audio_dir))
         elif len(name1) > 5:
             name3 = name1 if name1[-4] != 'm' else name1[:-5]
