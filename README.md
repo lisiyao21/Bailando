@@ -46,10 +46,10 @@ If not, run -->
 
 ## Evaluation
 
-To test with our pretrained models, please download the weights from [here](https://drive.google.com/file/d/1Fi0TIiBV6EQAQrBU0IOnlke2Nu4IcutC/view?usp=sharing) (Google Drive) or here (坚果云) as ./experiments folder.
+To test with our pretrained models, please download the weights from [here](https://drive.google.com/file/d/1Fi0TIiBV6EQAQrBU0IOnlke2Nu4IcutC/view?usp=sharing) (Google Drive) or separately downloads the four weights from [[weight 1]](https://www.jianguoyun.com/p/DcicSkIQ6OS4CRiH8LYE)|[[weight 2]](https://www.jianguoyun.com/p/DVKXlwIQ6OS4CRixxPQD)|[[weight 3]](https://www.jianguoyun.com/p/Dde220EQ6OS4CRiD8LYE)|[[weight4]](https://www.jianguoyun.com/p/DRHA80cQ6OS4CRiC8LYE) (坚果云) into ./experiments folder.
 
 ### 1. Generate dancing results
-sh srun_xxx.sh configs/xxx.yaml eval [your node name] 1
+    sh srun_xxx.sh configs/xxx.yaml eval [your node name] 1
 
 ### 2. Dance quality evaluations
 TODO
