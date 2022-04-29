@@ -23,10 +23,11 @@ parser.add_argument('--input_annotation_dir', type=str, default='aist_plusplus_f
 parser.add_argument('--smpl_dir', type=str, default='smpl')
 
 parser.add_argument('--train_dir', type=str, default='data/aistpp_train_wav')
-parser.add_argument('--test_dir', type=str, default='data/aistpp_test_wav_full')
+parser.add_argument('--test_dir', type=str, default='data/aistpp_test_full_wav')
 
 parser.add_argument('--split_train_file', type=str, default='aist_plusplus_final/splits/crossmodal_train.txt')
 parser.add_argument('--split_test_file', type=str, default='aist_plusplus_final/splits/crossmodal_test.txt')
+parser.add_argument('--split_val_file', type=str, default='aist_plusplus_final/splits/crossmodal_val.txt')
 
 parser.add_argument('--sampling_rate', type=int, default=15360*2)
 args = parser.parse_args()
@@ -40,6 +41,7 @@ if not os.path.exists(args.test_dir):
 
 split_train_file = args.split_train_file
 split_test_file = args.split_test_file
+split_val_file = args.split_val_file
 
 def make_music_dance_set(video_dir, annotation_dir):
     print('---------- Extract features from raw audio ----------')
@@ -62,12 +64,17 @@ def make_music_dance_set(video_dir, annotation_dir):
 
     train_file = open(split_train_file, 'r')
     for fname in train_file.readlines():
-        train.append(fname[:-1])
+        train.append(fname.strip())
     train_file.close()
 
     test_file = open(split_test_file, 'r')
     for fname in test_file.readlines():
-        test.append(fname[:-1])
+        test.append(fname.strip())
+    test_file.close()
+
+    test_file = open(split_val_file, 'r')
+    for fname in test_file.readlines():
+        test.append(fname.strip())
     test_file.close()
 
     ii = 0
@@ -205,18 +212,20 @@ def split_data(fnames):
     print('---------- Split data into train and test ----------')
 
     print(fnames)
-    train_file = open(split_train_file, 'r')
     
+    train_file = open(split_train_file, 'r')
     for fname in train_file.readlines():
-        if fname[:-1] in fnames:  
-            train.append(fnames.index(fname[:-1]))
+        train.append(fnames.index(fname.strip()))
     train_file.close()
 
     test_file = open(split_test_file, 'r')
-    
     for fname in test_file.readlines():
-        if fname[:-1] in fnames:  
-            test.append(fnames.index(fname[:-1]))
+        test.append(fnames.index(fname.strip()))
+    test_file.close()
+
+    test_file = open(split_val_file, 'r')
+    for fname in test_file.readlines():
+        test.append(fnames.index(fname.strip()))
     test_file.close()
 
     train = np.array(train)

@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     '--anno_dir',
     type=str,
-    default='aist-pp-dataset/aist_plusplus_final/',
+    default='aist_plusplus_final/',
     help='input local dictionary for AIST++ annotations.')
 parser.add_argument(
     '--smpl_dir',
@@ -54,6 +54,8 @@ def main(seq_name, motion_dir):
 
     features = extract_manual_features(keypoints3d)
     np.save(os.path.join(FLAGS.save_dir, 'manual_features_new', seq_name+"_manual.npy"), features)
+    features = extract_kinetic_features(keypoints3d)
+    np.save(os.path.join(FLAGS.save_dir, 'kinetic_features', seq_name+"_kinetic.npy"), features)
     print (seq_name, "is done")
 
 
