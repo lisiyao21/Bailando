@@ -177,27 +177,13 @@ def calc_and_save_feats(root):
 
 if __name__ == '__main__':
 
-    # aa = np.random.randn(39, 72)*
-    # bb = np.random.randn(39, 72)*0.1
-    # print(calc_fid(aa, bb))
-    gt_root = '/mnt/lustre/lisiyao1/dance/bailando/aist_features_zero_start'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/sep_vqvae_root_data_l1_d8_local_c512_di3_global_vel_full_beta0.9_1e-4_wav_beta0.5/eval/pkl/ep000500'
-    pred_root = '/mnt/lustressd/lisiyao1/dance_experiements/experiments/actor_critic/eval/pkl/ep000010'
-    # pred_root = '/mnt/lustressd/lisiyao1/dance_experiements/experiments/music_ccgpt2_wav_bsz_32_3e-4_beta0.5_len240_external_wav_real/eval/pkl/ep000440'
-    # pred_root = '/mnt/lustressd/lisiyao1/dance_experiements/experiments/sep_vqvae_l1_d8_local_c512_di3_3e-5_wav_beta0.5_vel0.5_acc0.5_ignore_lbin512_ds16/vis/pkl/ep000020'
-    # pred_root = '/mnt/lustressd/lisiyao1/dance_experiements/rebuttal/random/mix'
-    # pred_root = '/mnt/lustressd/lisiyao1/dance_experiements/experiments/music_ccgpt2_wav_bsz_32_3e-4_beta0.5_len240_external_wav_music_trans_full/vis/pkl/ep000200'
 
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/music_gpt_ds8_lbin512_c512_di3full/eval/pkl/ep000300'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/music_cross_cond_gpt_ds8_lbin512_c512_di3_init_0.01_beta0.9_full_dim768_3_9_9_ac_reward2_with_entropy_loss_alpha0.5_lr1e-4_no_pretrain/eval/pkl/ep000020'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/music_cross_cond_gpt_ds8_lbin512_c512_di3_init_0.01_beta0.9_full_dim768_3_9_9_ac_reward2_with_entropy_loss_alpha0.5_lr1e-4_no_pretrain/vis/pkl/ep000300'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/music_cross_cond_gpt_ds8_lbin512_c512_di3_init_0.01_beta0.9_full_dim768_wav_bsz_16_layer6/eval/pkl/ep000040'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/sep_vqvae_root_data_l1_d8_local_c512_di3_global_vel_full_beta0.9_1e-4_wav_beta0.5/eval/pkl/ep000300'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/music_cross_cond_gpt_ds8_lbin512_c512_di3_init_0.01_beta0.9_full_dim768_wav/eval/pkl/ep000300'
-    # pred_root = '/mnt/lustre/lisiyao1/dance/bailando/experiments/music_cross_cond_gpt_ds8_lbin512_c512_di3_init_0.01_beta0.9_full_dim768_666_ac_reward2_with_entropy_loss_alpha0.5_lr1e-4_no_pretrain/vis/pkl/ep000080'
+    gt_root = '../data/aist_features_zero_start'
+    pred_root = '../experiments/actor_critic/eval/pkl/ep000010'
     print('Calculating and saving features')
-    calc_and_save_feats(pred_root)
     # calc_and_save_feats(gt_root)
+    calc_and_save_feats(pred_root)
+
 
     print('Calculating metrics')
     print(gt_root)
