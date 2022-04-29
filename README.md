@@ -49,10 +49,33 @@ If not, run -->
 To test with our pretrained models, please download the weights from [here](https://drive.google.com/file/d/1Fi0TIiBV6EQAQrBU0IOnlke2Nu4IcutC/view?usp=sharing) (Google Drive) or separately downloads the four weights from [[weight 1]](https://www.jianguoyun.com/p/DcicSkIQ6OS4CRiH8LYE)|[[weight 2]](https://www.jianguoyun.com/p/DTi-B1wQ6OS4CRjonbwEIAA)|[[weight 3]](https://www.jianguoyun.com/p/Dde220EQ6OS4CRiD8LYE)|[[weight4]](https://www.jianguoyun.com/p/DRHA80cQ6OS4CRiC8LYE) (坚果云) into ./experiments folder.
 
 ### 1. Generate dancing results
-    sh srun_xxx.sh configs/xxx.yaml eval [your node name] 1
+
+To test the VQ-VAE (with or without global shift as you indicated in config):
+
+    sh srun.sh configs/sep_vqvae.yaml eval [your node name] 1
+
+To test GPT:
+
+    sh srun_gpt_all.sh configs/cc_motion_gpt.yaml eval [your node name] 1
+   
+To test final restuls:
+    
+    sh srun_actor_critic.sh configs/actor_critic.yaml eval [your node name] 1
 
 ### 2. Dance quality evaluations
-TODO
+
+After generating the dance in the above step, run the following codes.
+
+### Step 1: Extract the (kinetic & manual) features of all AIST++ motions (ONLY do it by once):
+    
+    python extract_aist_features.py
+
+
+### Step 2: compute the evaluation metrics:
+
+    python utils/metrics_new.py
+
+It will show exactly the same values reported in the paper. To fasten the computation, comment Line 184 of utils/metrics_new.py after computed the ground-truth feature once. To test another folder, change Line 182 to your destination, or kindly modify this code to a "non hard version" :)
 
 ## Choreographic for music in the wild
 TODO
