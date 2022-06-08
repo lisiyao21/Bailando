@@ -39,7 +39,7 @@ If not, run -->
 
 ### Step 2: Train glabal velocity branch of pose VQ-VAE
 
-    sh srun.sh configs/sep_vavqe_root.yaml train [your node name] 1
+    sh srun.sh configs/sep_vqvae_root.yaml train [your node name] 1
 
 ### Step 3: Train motion GPT
 
