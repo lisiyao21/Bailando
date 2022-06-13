@@ -117,13 +117,13 @@ data:
 testing:
     height: 540
     width: 960
-    ckpt_epoch: 10
+    ckpt_epoch: 5
 
 
 vqvae_weight: 'experiments/sep_vqvae_root/ckpt/epoch_500.pt'
 expname: actor_critic_for_demo_paper
 init_weight: 'experiments/cc_motion_gpt/ckpt/epoch_400.pt'
-epoch: 500
+epoch: 50
 batch_size: 128
 save_per_epochs: 1
 test_freq: 5
