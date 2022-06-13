@@ -24,7 +24,7 @@ In our experiments, we use AIST++ for both training and evaluation. Please visit
 
     ./prepare_aistpp_data.sh
 
-to produce the features for training and test. Otherwise, directly download our preprocessed feature from [here](https://drive.google.com/file/d/1iQQ6dQggGAa3qZFBCVRRCG6JOBnCZ0zw/view?usp=sharing) as ./data folder if you don't wish to process the data.
+to produce the features for training and test. Otherwise, directly download our preprocessed feature from [here](https://drive.google.com/file/d/1EGJeBE1fE59ByjxR_-ipwV6Dz-Cx-stT/view?usp=sharing) as ./data folder if you don't wish to process the data.
 
 ## Training
 
