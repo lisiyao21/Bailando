@@ -94,7 +94,7 @@ Then, run the reinforcement learning code as
 
     sh srun_actor_critic.sh configs/actor_critic_demo.yaml train [your node name] 1
 
-Scan ./experiments/actor_critic_for_demo/vis/videos to pick out a relative good results. Since reinforcement learning is not stable, there is no guratee that the synthesized dance is always satisfying. But empirically, fintuning can produce not-too-bad results after fineuning <= 30 epochs. All of our demos in the wild are made 
+Scan each stored epoch folder in ./experiments/actor_critic_for_demo/vis/videos to pick up a relative good one. Since reinforcement learning is not stable, there is no guratee that the synthesized dance is always satisfying. But empirically, fintuning can produce not-too-bad results after fineuning <= 30 epochs. All of our demos in the wild are made 
 in such way. 
 
 I wish you could enjoy it. 
