@@ -13,3 +13,6 @@ aistplusplus_api/
 aist_plusplus_final/
 __MACOSX/
 __pycache__/
+*.mp3
+*.mp4
+extra1/

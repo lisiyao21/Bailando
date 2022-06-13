@@ -138,17 +138,18 @@ def img2video(expdir, epoch, audio_path=None):
         os.system(cmd)
         
         name1 = name.replace('cAll', 'c02')
-        if 'demo' in name:
-            name3 = name1
-            audio_dir = 'data/demo_musics/'
-            music_names = sorted(os.listdir(audio_dir))
-        elif len(name1) > 5:
-            name3 = name1 if name1[-4] != 'm' else name1[:-5]
+
+        if 'cAll' in name:
+            music_name = name[-9:-5] + '.wav'
         else:
-            name3 = name1
-        if name3 + '.mp3' in music_names:
+            music_name = name + '.mp3'
+            audio_dir = 'extra/'
+            music_names = sorted(os.listdir(audio_dir))
+        
+        if music_name in music_names:
             print('combining audio!')
-            audio_dir_ = audio_dir + name3 + ".mp3"
+            audio_dir_ = os.path.join(audio_dir, music_name)
+            print(audio_dir_)
             name_w_audio = name + "_audio"
             cmd_audio = f"ffmpeg -i {video_dir}/{name}.mp4 -i {audio_dir_} -map 0:v -map 1:a -c:v copy -shortest -y {video_dir}/{name_w_audio}.mp4 -loglevel quiet"
             os.system(cmd_audio)
@@ -165,7 +166,7 @@ def visualize_json(fname_iter, image_dir, dance_name, dance_path, config, quant=
     if quant is not None:
         cv2.putText(img, str(quant[j]), (config.width-400, 80), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 3)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    img[np.all(img == [0, 0, 0, 255], axis=2)] = [255, 255, 255, 0]
+    # img[np.all(img == [0, 0, 0, 255], axis=2)] = [255, 255, 255, 0]
     img = Image.fromarray(numpy.uint8(img))
     img.save(os.path.join(f'{image_dir}/{dance_name}', f'frame{j:06d}.png'))
 
@@ -248,8 +249,8 @@ def write2json_original(dances, dance_names, config, expdir, epoch):
 
 def write2pkl(dances, dance_names, config, expdir, epoch, rotmat):
     epoch = int(epoch)
-    print(len(dances))
-    print(len(dance_names))
+    # print(len(dances))
+    # print(len(dance_names))
     assert len(dances) == len(dance_names),\
         "number of generated dance != number of dance_names"
     
@@ -282,8 +283,8 @@ def write2pkl(dances, dance_names, config, expdir, epoch, rotmat):
 
 def pose_code2pkl(pcodes, dance_names, config, expdir, epoch):
     epoch = int(epoch)
-    print(len(pcodes))
-    print(len(dance_names))
+    # print(len(pcodes))
+    # print(len(dance_names))
     assert len(pcodes) == len(dance_names),\
         "number of generated dance != number of dance_names"
     

@@ -109,8 +109,8 @@ optimizer:
 # schedular: []
 data:
     name: aist
-    train_dir: data/aistpp_test_full_wav # There's no problem here. Don't doubt
-    test_dir: data/aistpp_test_full_wav
+    train_dir: data/demo_music_feat_7.5fps 
+    test_dir: data/demo_music_feat_7.5fps
    
     seq_len: 240
     data_type: None
@@ -120,24 +120,22 @@ testing:
     ckpt_epoch: 10
 
 
-need_not_train_data: True
-
 vqvae_weight: 'experiments/sep_vqvae_root/ckpt/epoch_500.pt'
-expname: actor_critic
+expname: actor_critic_for_demo_paper
 init_weight: 'experiments/cc_motion_gpt/ckpt/epoch_400.pt'
 epoch: 500
 batch_size: 128
-save_per_epochs: 5
+save_per_epochs: 1
 test_freq: 5
 log_per_updates: 1
 seed: 42
 rotmat: False
 cuda: True
 global_vel: True
-ds_rate: 8
+ds_rate: 1
 move: 8
-external_wav: data/aistpp_music_feat_7.5fps
-external_wav_rate: 1
+# external_wav: data/demo_music_feat_7.5fps
+# external_wav_rate: 1
 gamma: 1.0
 pretrain_critic_epoch: 0
 critic_iter: 5
@@ -146,8 +144,8 @@ sample_code_rate: 8
 use_entropy: False
 entropy_alpha: 0.
 actor_loss_decay: 1
-demo: False
-rl_music_root: data/aistpp_test_full_wav
+demo: True
+rl_music_root: data/demo_music_feat_60fps
 # sample_shift: 15
 
 # sample_code_length: 150

@@ -44,9 +44,9 @@ class MoDaSeqAC(Dataset):
                 # print(seq_len, dim)
                 # print(np_dance_up.shape)
                 # print(np_dance_down.shape)
-                print(seq_len)
-                print(interval)
-                print(seq_len - interval)
+                # print(seq_len)
+                # print(interval)
+                # print(seq_len - interval)
                 # print(beat.shape)
                 for i in range(0, seq_len-interval+1):
                     if i == 0:

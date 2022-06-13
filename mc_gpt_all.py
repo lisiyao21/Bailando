@@ -107,7 +107,7 @@ class MCTall():
                 b, t, c = music_seq.size()
                 music_seq = music_seq.view(b, t//music_ds_rate, c*music_ds_rate)
                 # print('L109, ', music_seq.size())
-                if config.music_normalize:
+                if hasattr(config, 'music_normalize') and config.music_normalize:
                     print('Normalize!')
                     music_seq = music_seq / ( t//music_ds_rate * 1.0 )
 
@@ -186,7 +186,7 @@ class MCTall():
                         music_seq = music_seq.view(b, t//music_ds_rate, c*music_ds_rate)
                         music_seq = music_seq[:, config.ds_rate//music_relative_rate:]
                         # print(music_seq.size())
-                        if config.music_normalize:
+                        if hasattr(config, 'music_normalize') and config.music_normalize:
                             music_seq = music_seq / ( t//music_ds_rate * 1.0 )
 
                         # block_size = gpt.module.get_block_size()
@@ -291,12 +291,7 @@ class MCTall():
                             x[iij][:, 0] = torch.randint(512, (1, ))
                     else:
                         x[:, 0] = torch.randint(512, (1, ))
-                # print(x.size())
-                # print(music_seq.size())
-                # music_seq = music_seq[:, :, :config.structure_generate.n_music//config.ds_rate].contiguous().float()
-                # # print(music_seq.size())
-                # b, t, c = music_seq.size()
-                # music_seq = music_seq.view(b, t//config.ds_rate, c*config.ds_rate)
+
                 music_ds_rate = config.ds_rate if not hasattr(config, 'external_wav') else config.external_wav_rate
                 music_ds_rate = config.music_ds_rate if hasattr(config, 'music_ds_rate') else music_ds_rate
                 music_relative_rate = config.music_relative_rate if hasattr(config, 'music_relative_rate') else config.ds_rate
@@ -308,44 +303,17 @@ class MCTall():
                 
 
                 music_seq = music_seq[:, config.ds_rate//music_relative_rate:]
+                # it is just music_seq[:, 1:], ignoring the first music feature
                 
-                if config.music_normalize:
+                if hasattr(config, 'music_normalize') and config.music_normalize:
                     music_seq = music_seq / ( t//music_ds_rate * 1.0 )
                 # print(music_seq.size())
 
                 # block_size = gpt.module.get_block_size()
 
                 zs = gpt.module.sample(x, cond=music_seq, shift=config.sample_shift if hasattr(config, 'sample_shift') else None)
-                # jj = 0
-                # for k in range(music_seq.size(1)):
-                #     x_cond = x if x.size(1) <= block_size else x[:, -block_size:] # crop context if needed
-                #     music_seq_input = music_seq[:, :k+1] if k < block_size else music_seq[:, k-block_size+1:k+1]
-                #     # print(x_cond.size())
-                #     # print(music_seq_input.size())
-                #     logits, _ = gpt(x_cond, music_seq_input)
-                #     # jj += 1
-                #     # pluck the logits at the final step and scale by temperature
-                #     logits = logits[:, -1, :]
-                #     # optionally crop probabilities to only the top k options
-                #     # if top_k is not None:
-                #     #     logits = top_k_logits(logits, top_k)
-                #     # apply softmax to convert to probabilities
-                #     probs = F.softmax(logits, dim=-1)
-                #     # sample from the distribution or take the most likely
-                #     # if sample:
-                #     #     ix = torch.multinomial(probs, num_samples=1)
-                #     # else:
-                #     _, ix = torch.topk(probs, k=1, dim=-1)
-                #     # append to the sequence and continue
-                #     x = torch.cat((x, ix), dim=1)
 
-                # zs = [x]
                 pose_sample = vqvae.module.decode(zs)
-
-                # from models.up_down_half_reward import UpDownReward
-
-                # reward = UpDownReward(None) 
-                # reward_values = reward(pose_sample, None, config.ds_rate).view(-1) 
 
                 if config.global_vel:
                     print('!!!!!')
@@ -357,9 +325,6 @@ class MCTall():
                 results.append(pose_sample)
                 if isinstance(zs, tuple):
                     quants_out[self.dance_names[i_eval]] = tuple(zs[ii][0].cpu().data.numpy()[0] for ii in range(len(zs))) 
-                    # print(len(quants_out[self.dance_names[i_eval]]))
-                    # print(quants_out[self.dance_names[i_eval]][0])
-                    # print(quants_out[self.dance_names[i_eval]][2])
                 else:
                     quants_out[self.dance_names[i_eval]] = zs[0].cpu().data.numpy()[0]
 

@@ -134,6 +134,7 @@ class AC():
                     gpt.eval()
                     # music [1 ... 29], pose [0]
                     music_seq = music_seq_ori[:, 1:]
+                    # print(z.size())
                     zs = gpt.module.sample(x, cond=music_seq)
                     # zs [0, ..., 29]
 
@@ -144,7 +145,7 @@ class AC():
                     dance_up_seqs.append(zs[0][0][0].data.cpu().numpy())
                     dance_down_seqs.append(zs[1][0][0].data.cpu().numpy())
                     music_seqs.append(music_seq_ori[0].data.cpu().numpy())
-                    beat_seqs.append(get_beat(self.dance_names[batch_i], config.music_root))
+                    beat_seqs.append(get_beat(self.dance_names[batch_i], config.rl_music_root))
 
             # 2. sample music-motion pair from generated data
             training_data = prepare_dataloader(music_seqs, (dance_up_seqs, dance_down_seqs), beat_seqs, self.config.batch_size, self.config.structure_generate.block_size+1)
@@ -357,7 +358,7 @@ class AC():
             self.device = torch.device('cuda' if config.cuda else 'cpu')
             print("Evaluation...")
             checkpoint = torch.load(ckpt_path)
-            gpt.load_state_dict(checkpoint['model'])
+            gpt.load_state_dict(checkpoint['model'], strict=False)
             gpt.eval()
 
             results = []

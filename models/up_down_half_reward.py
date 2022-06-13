@@ -33,8 +33,10 @@ def ba_reward(keypoints, beats):
     dance_beats = calc_db(keypoints)
     b, t = beats.size()
     beats = beats.view(b, t//8, 8).float().max(2)[0]
-   # dance_beats[beats == 0] = 1
-   # beats[:, :] = 1
+
+    # To keep same as paper, uncomment the following two lines
+    # dance_beats[beats == 0] = 1
+    # beats[:, :] = 1
     return (beats*dance_beats - 0.5) * 10
 
 

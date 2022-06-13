@@ -107,6 +107,8 @@ testing:
 vqvae_weight: 'experiments/sep_vqvae_root/ckpt/epoch_500.pt'
 expname: cc_motion_gpt
 
+
+need_not_train_data: True
 epoch: 500
 batch_size: 32
 # demo: True
@@ -121,7 +123,7 @@ ds_rate: 8
 move: 8
 external_wav: data/aistpp_music_feat_7.5fps
 external_wav_rate: 1
-random_init_test: True
+# random_init_test: True
 music_normalize: False
 # demo: False
 # sample_code_length: 150
