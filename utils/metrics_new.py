@@ -179,9 +179,9 @@ if __name__ == '__main__':
 
 
     gt_root = 'data/aist_features_zero_start'
-    pred_root = 'experiments/cc_motion_gpt/eval/pkl/ep000400/'
+    pred_root = 'experiments/actor_critic/eval/pkl/ep000010'
     print('Calculating and saving features')
-    # calc_and_save_feats(gt_root)
+    calc_and_save_feats(gt_root)
     calc_and_save_feats(pred_root)
 
 
