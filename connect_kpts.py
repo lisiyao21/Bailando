@@ -6,8 +6,8 @@ import cv2, copy
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--kpt-dir', type=str, default='./ZICO-Summer_Hate_accompaniment.json')
-    parser.add_argument('--hand-dir', type=str, default='./pose_hands_json/pose_hands_json/dance1/')
+    parser.add_argument('--kpt-dir', type=str, default='D:\\CILAB\\과제\\CT\\청각\\ZICO-Summer_Hate_accompaniment.json')
+    parser.add_argument('--hand-dir', type=str, default='D:\\CILAB\\과제\\CT\\청각\\수정된키포인트')
     parser.add_argument('--save-dir', type=str, default='./test')
     return parser.parse_args()
 
@@ -37,20 +37,24 @@ class ConnectKptHand:
 
     def read_data(self):
         kpt_files = os.listdir(self.kpt_dir)
-        self.kpts_seq = np.zeros((len(kpt_files), 25, 3))
+        self.kpts_seq = np.zeros((len(kpt_files)//2, 25, 3))
+        idx = 0
         for i, kpt_file in enumerate(kpt_files):
+            if i % 2 == 0:
+                continue
             with io.open(os.path.join(self.kpt_dir, kpt_file), 'rb') as f:
                 jd = json.load(f)
                 dance = np.array(jd['people'][0]['pose_keypoints_2d'])
                 dance = np.reshape(dance, (25, 3))
-            self.kpts_seq[i] = dance
+            self.kpts_seq[idx] = dance
+            idx += 1
 
         hand_files = os.listdir(self.hand_dir)
         self.hands_seq = np.zeros((len(hand_files), 42, 3))
         for j, hand_file in enumerate(hand_files):
             with io.open(os.path.join(self.hand_dir, hand_file), 'rb') as f2:
                 jd2 = json.load(f2)
-                hand = np.array(jd2['keypoints_3d'])[33:]
+                hand = np.array(jd2['keypoints_3d'])
             if len(hand) == 21:
                 self.hands_seq[j, :21] = hand
             else:
@@ -110,21 +114,21 @@ class ConnectKptHand:
         imgs = os.listdir(self.save_dir)
         imgs = sorted(imgs)
         frames = []
-        for img_file in imgs[:100]:
-            print(img_file)
+        for img_file in imgs:
+            #print(img_file)
             img = cv2.imread(os.path.join(self.save_dir, img_file))
             h, w , _ = img.shape
             size = (w, h)
             frames.append(img)
-        out = cv2.VideoWriter('./test.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 8, size)
+        out = cv2.VideoWriter('./test.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 30, size)
         for frame in frames:
             out.write(frame)
         out.release()
 if __name__ == '__main__':
     args = parse_args()
     connector = ConnectKptHand(args.kpt_dir, args.hand_dir, args.save_dir)
-    #connector.read_data()
-    #connector.draw_kpts(start_timestep=0)
+    connector.read_data()
+    connector.draw_kpts(start_timestep=0)
     connector.make_video()
 
 

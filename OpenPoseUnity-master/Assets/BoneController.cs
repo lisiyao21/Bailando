@@ -23,6 +23,7 @@ public class BoneController : MonoBehaviour
 	float scale_ratio = 0.001f;
     float heal_position = 0.05f;
     float head_angle = 0f;
+	public int startFrame;
 
 
 	float Timer;
@@ -87,7 +88,7 @@ public class BoneController : MonoBehaviour
 	{
 		if (NowFrame < Data_Size)
 		{
-			StreamReader fi = new StreamReader(Application.dataPath + Data_Path + File_Name + NowFrame.ToString() + ".txt");
+			StreamReader fi = new StreamReader(Application.dataPath + Data_Path + File_Name + (NowFrame + startFrame).ToString() + ".txt");
 			NowFrame++;
 			string all = fi.ReadToEnd();
 			if (all != "0")

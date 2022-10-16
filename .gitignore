@@ -16,3 +16,5 @@ __pycache__/
 *.mp3
 *.mp4
 extra1/
+
+/test/
