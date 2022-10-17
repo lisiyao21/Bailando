@@ -10,6 +10,7 @@ public class BoneController : MonoBehaviour
 	[SerializeField, Range(10, 120)] float FrameRate;
 	[SerializeField] string Data_Path;
 	[SerializeField] string File_Name;
+	[SerializeField] int Start_Frame;
 	[SerializeField] int Data_Size;
 	public List<Transform> BoneList = new List<Transform>();
 	Vector3[] points = new Vector3[17];
@@ -17,14 +18,16 @@ public class BoneController : MonoBehaviour
 	Quaternion[] init_rot;
 	Vector3 init_position; 
     Quaternion[] init_inv; //Inverse
-	int[] bones = new int[10] { 1, 2, 4, 5, 7, 8, 11, 12, 14, 15 }; 
-    int[] child_bones = new int[10] { 2, 3, 5, 6, 8, 10, 12, 13, 15, 16 }; // bones
+	// int[] bones = new int[10] { 1, 2, 4, 5, 7, 8, 11, 12, 14, 15 }; 
+    // int[] child_bones = new int[10] { 2, 3, 5, 6, 8, 10, 12, 13, 15, 16 }; // bones
+	// int[] bones = new int[13] { 1, 2, 4, 5, 7, 8, 8, 8, 9, 11, 12, 14, 15 }; 
+    // int[] child_bones = new int[13] { 2, 3, 5, 6, 8, 1, 4, 9, 10, 12, 13, 15, 16 }; // bones
+	int[] bones = new int[15] { 0, 0, 1, 2, 4, 5, 7, 8, 8, 8, 9, 11, 12, 14, 15 }; 
+    int[] child_bones = new int[15] { 11, 14, 2, 3, 5, 6, 8, 1, 4, 9, 10, 12, 13, 15, 16 }; // bones
 	int bone_num = 19;
-	float scale_ratio = 0.001f;
-    float heal_position = 0.05f;
+	float scale_ratio = 0.005f;
+    float heal_position = 0.005f;
     float head_angle = 0f;
-	public int startFrame;
-
 
 	float Timer;
 	int[,] joints = new int[,]
@@ -88,7 +91,7 @@ public class BoneController : MonoBehaviour
 	{
 		if (NowFrame < Data_Size)
 		{
-			StreamReader fi = new StreamReader(Application.dataPath + Data_Path + File_Name + (NowFrame + startFrame).ToString() + ".txt");
+			StreamReader fi = new StreamReader(Application.dataPath + Data_Path + File_Name + (NowFrame + Start_Frame).ToString() + ".txt");
 			NowFrame++;
 			string all = fi.ReadToEnd();
 			if (all != "0")
@@ -155,7 +158,7 @@ public class BoneController : MonoBehaviour
 
         Vector3 pos_forward = TriangleNormal(now_pos[7], now_pos[4], now_pos[1]);
 		// 캐릭터의 위치를 업데이트
-        BoneList[0].position = now_pos[0] * scale_ratio + new Vector3(init_position.x, heal_position, init_position.z);
+        BoneList[0].position = (now_pos[0] * scale_ratio) + new Vector3(init_position.x, heal_position, init_position.z);
         BoneList[0].rotation = Quaternion.LookRotation(pos_forward) * init_inv[0] * init_rot[0];
 
 		Vector3 tmp = new Vector3(-1, 0, 0);
@@ -164,12 +167,16 @@ public class BoneController : MonoBehaviour
             int cb = child_bones[i];
             // Debug.Log($"{i},{b},{cb}");
 			Debug.Log($"{BoneList[b].rotation = (Quaternion.LookRotation(now_pos[b] - now_pos[cb], pos_forward) * init_inv[b] * init_rot[b])}");
-			if (i >= 0 && i <= 3){
+			
+			if (i >= 2 && i <= 5){
 				BoneList[b].Rotate(180,0,180);
 			}
+			// if (i >= 0 && i <= 3){
+			// 	BoneList[b].Rotate(180,0,180);
+			// }
         }
 
-        BoneList[8].rotation = Quaternion.AngleAxis(head_angle, BoneList[11].position - BoneList[14].position) * BoneList[8].rotation;
+        // BoneList[9].rotation = Quaternion.AngleAxis(head_angle, BoneList[11].position - BoneList[14].position) * BoneList[8].rotation;
 		
 		for (int i = 0; i < 16; i++)
 		{
