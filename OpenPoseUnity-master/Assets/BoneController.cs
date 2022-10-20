@@ -13,10 +13,14 @@ public class BoneController : MonoBehaviour
 	[SerializeField] int Start_Frame;
 	[SerializeField] int Data_Size;
 	public List<Transform> BoneList = new List<Transform>();
+	public float initX;
+	public float initY;
+	public float initZ;
 	Vector3[] points = new Vector3[17];
 	Vector3[] NormalizeBone = new Vector3[12];
 	Quaternion[] init_rot;
-	Vector3 init_position; 
+	Vector3 init_position;
+	Vector3 position_offset;
     Quaternion[] init_inv; //Inverse
 	// int[] bones = new int[10] { 1, 2, 4, 5, 7, 8, 11, 12, 14, 15 }; 
     // int[] child_bones = new int[10] { 2, 3, 5, 6, 8, 10, 12, 13, 15, 16 }; // bones
@@ -28,6 +32,7 @@ public class BoneController : MonoBehaviour
 	float scale_ratio = 0.005f;
     float heal_position = 0.005f;
     float head_angle = 0f;
+	
 
 	float Timer;
 	int[,] joints = new int[,]
@@ -74,7 +79,7 @@ public class BoneController : MonoBehaviour
 		Vector3 init_forward = TriangleNormal(points[7],points[4],points[1]);
 		init_inv[0] = Quaternion.Inverse(Quaternion.LookRotation(init_forward));
 
-        init_position = BoneList[0].position;
+		init_position = BoneList[0].position;
         init_rot[0] = BoneList[0].rotation;
         for (int i = 0; i < bones.Length; i++) {
             int b = bones[i];
@@ -92,7 +97,6 @@ public class BoneController : MonoBehaviour
 		if (NowFrame < Data_Size)
 		{
 			StreamReader fi = new StreamReader(Application.dataPath + Data_Path + File_Name + (NowFrame + Start_Frame).ToString() + ".txt");
-			NowFrame++;
 			string all = fi.ReadToEnd();
 			if (all != "0")
 			{
@@ -104,9 +108,14 @@ public class BoneController : MonoBehaviour
 				// float[] y = axis[2].Replace("[", "").Replace("\r\n", "").Replace("\n", "").Split(' ').Where(s => s != "").Select(f => float.Parse(f)).ToArray();
 				// float[] z = axis[1].Replace("[", "").Replace("\r\n", "").Replace("\n", "").Split(' ').Where(s => s != "").Select(f => float.Parse(f)).ToArray();
 				
+                if (NowFrame == 0)
+                {
+					int idx = 0;
+                    position_offset = new Vector3(x[idx] - initX, y[idx] - initY, z[idx] - initZ);
+                }
 				for (int i = 0; i < 17; i++)
 				{
-					points[i] = new Vector3(x[i], y[i], z[i]);
+					points[i] = new Vector3(x[i], y[i], z[i]) - position_offset; 
 				}
 				for (int i = 0; i < 12; i++)
 				{
@@ -117,6 +126,7 @@ public class BoneController : MonoBehaviour
 			{
 				Debug.Log("All Data 0");
 			}
+			NowFrame++;
 		}
 	}
 	void PointUpdateByTime()

@@ -4,22 +4,24 @@ import json, io, pickle, os
 from PIL import Image
 import cv2, copy
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--kpt-dir', type=str, default='D:\\CILAB\\과제\\CT\\청각\\ZICO-Summer_Hate_accompaniment.json')
-    parser.add_argument('--hand-dir', type=str, default='D:\\CILAB\\과제\\CT\\청각\\수정된키포인트')
+    parser.add_argument('--kpt-dir', type=str, default='D:\\CILAB\\과제\\CT\\청각\\Bailando2D\\dance')
+    parser.add_argument('--hand-dir', type=str, default='D:\\CILAB\\과제\\CT\\청각\\Bailando2D\\hand')
     parser.add_argument('--save-dir', type=str, default='./test')
     return parser.parse_args()
 
-class ConnectKptHand:
 
-    def __init__(self, kpt_dir, hand_dir, save_dir, kpt_scaling=1.4, hand_scaling=0.5):
+class ConnectKptHand:
+    def __init__(self, kpt_dir, hand_dir, save_dir, music, kpt_scaling=1.4, hand_scaling=0.5):
         # paths
-        self.kpt_dir = kpt_dir
-        self.hand_dir = hand_dir
-        self.save_dir = save_dir
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
+        self.music = music
+        self.kpt_dir = os.path.join(kpt_dir, self.music)
+        self.hand_dir = os.path.join(hand_dir, self.music)
+        self.save_dir = os.path.join(save_dir, self.music)
+        if not os.path.exists(self.save_dir):
+            os.makedirs(self.save_dir)
         # joint connection
         self.adj_hands = [[0, 1], [1, 2], [2, 3], [3, 4], [0, 5], [5, 6], [6, 7], [7, 8],
                     [5, 9], [9, 10], [10, 11], [11, 12], [9, 13], [13, 14], [14, 15],
@@ -72,9 +74,9 @@ class ConnectKptHand:
             black = np.full((self.img_shape[0], self.img_shape[1], 3), 0, dtype=np.int8)
 
             # draw skeleton
-            kpts = np.trunc(kpts) * 1.4
+            kpts = np.trunc(kpts) * self.kpt_scaling
             kpts = kpts.astype(np.int16)
-            kpts[:, 0] = self.img_shape[0] - kpts[:, 0]
+            kpts[:, 0] = self.img_shape[0] - kpts[:, 0] + 800
 
             for kpt in kpts:
                 black = cv2.circle(black, (kpt[0], kpt[1]), 3, (0, 0, 255), -1)
@@ -84,7 +86,7 @@ class ConnectKptHand:
                 black = cv2.line(black, start, end, (255, 255, 255), 2)
 
             if (i >= start_timestep) and (i < end_timestep):
-                hands = np.trunc(copy.deepcopy(self.hands_seq[h])) * 0.5
+                hands = np.trunc(copy.deepcopy(self.hands_seq[h])) * self.hand_scaling
                 hands = hands.astype(np.int16)
                 hands[:21] = self._match_hand(kpts[4], hands[:21])
                 hands[21:] = self._match_hand(kpts[7], hands[21:])
@@ -120,16 +122,21 @@ class ConnectKptHand:
             h, w , _ = img.shape
             size = (w, h)
             frames.append(img)
-        out = cv2.VideoWriter('./test.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 30, size)
+        out = cv2.VideoWriter(f'./test/{self.music}.mp4', cv2.VideoWriter_fourcc(*'DIVX'), 30, size)
         for frame in frames:
             out.write(frame)
         out.release()
+
+
 if __name__ == '__main__':
     args = parse_args()
-    connector = ConnectKptHand(args.kpt_dir, args.hand_dir, args.save_dir)
-    connector.read_data()
-    connector.draw_kpts(start_timestep=0)
-    connector.make_video()
+    clips = os.listdir(args.kpt_dir)
+    for clip in clips:
+        print(clip)
+        connector = ConnectKptHand(args.kpt_dir, args.hand_dir, args.save_dir, clip)
+        connector.read_data()
+        connector.draw_kpts(start_timestep=0)
+        connector.make_video()
 
 
 
