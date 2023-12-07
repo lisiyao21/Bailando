@@ -2,10 +2,10 @@
 Code for TPAMI 2023 paper "Bailando++: 3D dance GPT with Choreographic Memory"
 
 
-[[Paper]](https://arxiv.org/abs/2203.13055) | [[Video Demo]](tps://youtu.be/jht6NpwqLM4)
+[[Paper]](https://ieeexplore.ieee.org/abstract/document/10264209) | [[Video Demo]](https://youtu.be/jht6NpwqLM4)
 
 <p float="center">
-	<img src="https://github.com/lisiyao21/Bailando/blob/main/gifs/improvement.gif" width="150" /> 
+	<img src="https://github.com/lisiyao21/Bailando/blob/main/gifs/improvement.gif" width="800" /> 
 	</p>
 
 > Our proposed music-to-dance framework, Bailando++, addresses the challenges of driving 3D characters to dance in a way that follows the constraints of choreography norms and maintains temporal coherency with different music genres. Bailando++ consists of two components: a choreographic memory that learns to summarize meaningful dancing units from 3D pose sequences, and an actor-critic Generative Pre-trained Transformer (GPT) that composes these units into a fluent dance coherent to the music. In particular, to synchronize the diverse motion tempos and music beats, we introduce an actor-critic-based reinforcement learning scheme to the GPT with a novel beat-align reward function. Additionally, we consider learning human dance poses in the rotation domain to avoid body distortions incompatible with human morphology, and introduce a musical contextual encoding to allow the motion GPT to grasp longer-term patterns of music. Our experiments on the standard benchmark show that Bailando++ achieves state-of-the-art performance both qualitatively and quantitatively, with the added benefit of the unsupervised discovery of human-interpretable dancing-style poses in the choreographic memory.
