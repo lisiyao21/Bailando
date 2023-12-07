@@ -1,0 +1,184 @@
+structure:
+    name: SepVQVAERmix
+    up_half:
+    # VQVAE configs
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vel: 1
+        acc: 1
+        vqvae_reverse_decoder_dilation: True
+    down_half:
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vel: 1
+        acc: 1
+        vqvae_reverse_decoder_dilation: True
+    use_bottleneck: True
+    use_6d_rotation: False
+    joint_channel: 3
+    rot_channel: 9
+    l_bins : 512
+
+    
+    
+structure_generate:
+    name: CrossCondGPT2MWAC
+    #ChoreoGrapher Configs
+    block_size: 29
+    music_trans:
+        window_size: 11
+        n_music: 55
+        embd_pdrop: 0.1
+        resid_pdrop: 0.1
+        attn_pdrop: 0.1
+        n_layer: 3
+        n_embd: 768
+        downsample_rate: 8
+        block_size: 29
+        n_head: 12
+        n_music_emb: 768
+    base:
+        embd_pdrop: 0.1
+        resid_pdrop: 0.1
+        attn_pdrop: 0.1
+        vocab_size_up: 512
+        vocab_size_down: 512
+        block_size: 29
+        n_layer: 6
+        n_head: 12
+        n_embd: 768 
+        n_music: 768
+        n_music_emb: 768
+    head:
+        embd_pdrop: 0.1
+        resid_pdrop: 0.1
+        attn_pdrop: 0.1
+        vocab_size: 512
+        block_size: 29
+        n_layer: 6
+        n_head: 12
+        n_embd: 768
+        vocab_size_up: 512
+        vocab_size_down: 512
+    critic_net:
+        embd_pdrop: 0.
+        resid_pdrop: 0.
+        attn_pdrop: 0.
+        block_size: 29
+        n_layer: 3
+        n_head: 12
+        n_embd: 768
+        vocab_size_up: 1
+        vocab_size_down: 1
+    n_music: 55
+    n_music_emb: 768
+
+
+reward: 
+    name: UpDownReward
+    rate: 0
+
+loss_weight:
+    mse_weight: 1
+optimizer:
+    type: Adam
+    kwargs:
+        lr: 0.00001
+        betas: [0.5, 0.999]
+        weight_decay: 0
+    schedular_kwargs:
+        milestones: [40]
+        gamma: 1
+# schedular: []
+data:
+    name: aist
+    train_dir: ../data/aistpp_test_full_wav # There's no problem here. Don't doubt
+    test_dir: ../data/aistpp_test_full_wav
+   
+    seq_len: 240
+    data_type: None
+testing:
+    height: 540
+    width: 960
+    ckpt_epoch: 10
+
+
+# need_not_train_data: True
+
+vqvae_weight: 'experiments/sep_vqvae_root_mix_w_vel_acc/ckpt/epoch_500.pt'
+expname: actor_critic
+init_weight: 'experiments/cc_gpt_music_trans/ckpt/epoch_400.pt'
+
+epoch: 500
+batch_size: 64
+save_per_epochs: 5
+test_freq: 5
+log_per_updates: 1
+seed: 42
+rotmat: True
+cuda: True
+global_vel: True
+ds_rate: 8
+move: 8
+
+
+gamma: 1.0
+pretrain_critic_epoch: 0
+critic_iter: 5
+actor_iter: 5
+sample_code_rate: 8
+use_entropy: False
+entropy_alpha: 0.
+actor_loss_decay: 1
+demo: False
+rl_music_root: ../data/aistpp_test_full_wav
+
+wav_padding: 5
+external_wav: ../data/aistpp_music_feat_60fps
+external_wav_rate: 1
+music_ds_rate: 1
+music_relative_rate: 1
+# sample_shift: 15
+music_normalize: False
+
+rotmat_input: False
+
+smpl_dir: /mnt/lustre/syli/dance/Bailando/smpl
+
+folder_suffix: rotmat

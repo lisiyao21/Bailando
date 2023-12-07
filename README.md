@@ -2,6 +2,8 @@
 Code for CVPR 2022 (oral) paper "Bailando: 3D dance generation via Actor-Critic GPT with Choreographic Memory"
 
 
+[<ins>**An updated version Bailando++ is accepted by TPAMI 2023!**</ins>](https://github.com/lisiyao21/Bailando/tree/main/tpami_bailandopp)
+
 [[Paper]](https://arxiv.org/abs/2203.13055) | [[Project Page]](https://www.mmlab-ntu.com/project/bailando/index.html) |  [[Video Demo]](https://www.youtube.com/watch?v=YbXOcuMTzD8)
 
 ✨ Do not hesitate to give a star! ✨

@@ -1,0 +1,144 @@
+structure:
+    name: SepVQVAER
+    up_half:
+    #ChoreoGrapher Configs
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vqvae_reverse_decoder_dilation: True
+    down_half:
+        levels: 1
+        downs_t: [3,]
+        strides_t : [2,]
+        emb_width : 512
+        l_bins : 512
+        l_mu : 0.99
+        commit : 0.02
+        hvqvae_multipliers : [1,]
+        width: 512
+        depth: 3
+        m_conv : 1.0
+        dilation_growth_rate : 3
+        sample_length: 240
+        use_bottleneck: True
+        joint_channel: 3
+        # depth: 3
+        # width: 128
+        # m_conv: 1.0
+        # dilation_growth_rate: 1
+        # dilation_cycle: None
+        vqvae_reverse_decoder_dilation: True
+    use_bottleneck: True
+    joint_channel: 3
+    
+    
+structure_generate:
+    name: CrossCondGPT2MW
+    #ChoreoGrapher Configs
+    block_size: 29
+    music_trans:
+        window_size: 11
+        n_music: 55
+        embd_pdrop: 0.1
+        resid_pdrop: 0.1
+        attn_pdrop: 0.1
+        n_layer: 3
+        n_embd: 768
+        downsample_rate: 8
+        block_size: 29
+        n_head: 12
+        n_music_emb: 768
+    base:
+        embd_pdrop: 0.1
+        resid_pdrop: 0.1
+        attn_pdrop: 0.1
+        vocab_size_up: 512
+        vocab_size_down: 512
+        block_size: 29
+        n_layer: 6
+        n_head: 12
+        n_embd: 768 
+        n_music: 768
+        n_music_emb: 768
+    head:
+        embd_pdrop: 0.1
+        resid_pdrop: 0.1
+        attn_pdrop: 0.1
+        vocab_size: 512
+        block_size: 29
+        n_layer: 6
+        n_head: 12
+        n_embd: 768
+        vocab_size_up: 512
+        vocab_size_down: 512 
+    n_music: 55
+    n_music_emb: 768
+    # XXX Configs
+
+loss_weight:
+    mse_weight: 1
+optimizer:
+    type: Adam
+    kwargs:
+        lr: 0.0003
+        betas: [0.5, 0.999]
+        weight_decay: 0
+    schedular_kwargs:
+        milestones: [250, 400]
+        gamma: 0.1
+# schedular: []
+data:
+    name: aist
+    train_dir: ../data/aistpp_test_full_wav
+    test_dir: ../data/aistpp_test_full_wav
+
+    seq_len: 240
+    data_type: None
+testing:
+    height: 540
+    width: 960
+    ckpt_epoch: 400
+
+
+need_not_train_data: True
+vqvae_weight: '../experiments/sep_vqvae_root/ckpt/epoch_500.pt'
+expname: cc_gpt_music_trans
+
+epoch: 500
+batch_size: 32
+demo: False
+save_per_epochs: 20
+test_freq: 20
+log_per_updates: 1
+seed: 42
+rotmat: False
+cuda: True
+global_vel: True
+ds_rate: 8
+move: 8
+wav_padding: 5
+external_wav: ../data/aistpp_music_feat_60fps
+external_wav_rate: 1
+music_ds_rate: 1
+music_relative_rate: 1
+# sample_shift: 15
+music_normalize: False
+# sample_code_length: 150
+# analysis_array: [438, 511, 419, 11, 7, 92, 128, 256, 333]
